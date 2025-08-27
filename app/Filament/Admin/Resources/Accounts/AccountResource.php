@@ -11,7 +11,6 @@ use App\Models\Account;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
@@ -23,9 +22,15 @@ class AccountResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-building-library';
 
-    protected static string|UnitEnum|null $navigationGroup = 'Master Data';
+    protected static string|UnitEnum|null $navigationGroup = 'Data Master';
 
     protected static ?int $navigationSort = 1;
+
+    protected static ?string $navigationLabel = 'Akun';
+
+    protected static ?string $modelLabel = 'Akun';
+
+    protected static ?string $pluralModelLabel = 'Akun';
 
     public static function getEloquentQuery(): Builder
     {

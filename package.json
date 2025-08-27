@@ -1,7 +1,7 @@
 {
     "$schema": "https://json.schemastore.org/package.json",
-    "name": "buku-bisnis",
-    "description": "A modern multi-user bookkeeping and financial management system",
+    "name": "buku-finansial-podomoro",
+    "description": "A modern bookkeeping and financial management system for Podomoro bakso business",
     "private": true,
     "type": "module",
     "scripts": {

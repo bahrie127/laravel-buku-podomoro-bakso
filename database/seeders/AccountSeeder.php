@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Account;
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class AccountSeeder extends Seeder
@@ -20,7 +19,7 @@ class AccountSeeder extends Seeder
             // Create default accounts for each user
             Account::create([
                 'user_id' => $user->id,
-                'name' => 'Cash Wallet',
+                'name' => 'Kas Tunai',
                 'type' => 'cash',
                 'starting_balance' => 500000,
                 'is_active' => true,
@@ -28,7 +27,7 @@ class AccountSeeder extends Seeder
 
             Account::create([
                 'user_id' => $user->id,
-                'name' => 'BCA Checking',
+                'name' => 'BCA Tabungan',
                 'type' => 'bank',
                 'starting_balance' => 2500000,
                 'is_active' => true,
@@ -36,7 +35,7 @@ class AccountSeeder extends Seeder
 
             Account::create([
                 'user_id' => $user->id,
-                'name' => 'Mandiri Savings',
+                'name' => 'Mandiri Tabungan',
                 'type' => 'bank',
                 'starting_balance' => 5000000,
                 'is_active' => true,
@@ -44,7 +43,7 @@ class AccountSeeder extends Seeder
 
             Account::create([
                 'user_id' => $user->id,
-                'name' => 'Dana E-Wallet',
+                'name' => 'Dana',
                 'type' => 'ewallet',
                 'starting_balance' => 250000,
                 'is_active' => true,

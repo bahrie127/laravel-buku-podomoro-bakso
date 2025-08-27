@@ -1,6 +1,6 @@
-# Buku Bisnis
+# Buku Finansial Podomoro
 
-A modern, multi-user bookkeeping and financial management system built with Laravel 12 and Filament v4. **Buku Bisnis** provides a comprehensive solution for managing personal or business finances with an intuitive admin interface designed specifically for Indonesian users.
+A modern, multi-user bookkeeping and financial management system built with Laravel 12 and Filament v4. **Buku Finansial Podomoro** provides a comprehensive solution for managing bakso business finances with an intuitive admin interface designed specifically for Indonesian users.
 
 ![Laravel](https://img.shields.io/badge/Laravel-12-red?style=flat-square&logo=laravel)
 ![Filament](https://img.shields.io/badge/Filament-v4-orange?style=flat-square)

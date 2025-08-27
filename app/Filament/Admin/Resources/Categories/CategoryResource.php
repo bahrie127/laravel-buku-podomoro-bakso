@@ -23,9 +23,15 @@ class CategoryResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::RectangleStack;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Master Data';
+    protected static string|UnitEnum|null $navigationGroup = 'Data Master';
 
     protected static ?int $navigationSort = 2;
+
+    protected static ?string $navigationLabel = 'Kategori';
+
+    protected static ?string $modelLabel = 'Kategori';
+
+    protected static ?string $pluralModelLabel = 'Kategori';
 
     public static function getEloquentQuery(): Builder
     {

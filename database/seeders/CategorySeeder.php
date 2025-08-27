@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Category;
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class CategorySeeder extends Seeder
@@ -20,99 +19,99 @@ class CategorySeeder extends Seeder
             // Income categories
             $salaryCategory = Category::create([
                 'user_id' => $user->id,
-                'name' => 'Salary',
+                'name' => 'Gaji',
                 'type' => 'income',
             ]);
 
             Category::create([
                 'user_id' => $user->id,
-                'name' => 'Base Salary',
+                'name' => 'Gaji Pokok',
                 'type' => 'income',
                 'parent_id' => $salaryCategory->id,
             ]);
 
             Category::create([
                 'user_id' => $user->id,
-                'name' => 'Overtime',
+                'name' => 'Lembur',
                 'type' => 'income',
                 'parent_id' => $salaryCategory->id,
             ]);
 
             $businessCategory = Category::create([
                 'user_id' => $user->id,
-                'name' => 'Business',
+                'name' => 'Usaha',
                 'type' => 'income',
             ]);
 
             Category::create([
                 'user_id' => $user->id,
-                'name' => 'Freelance',
+                'name' => 'Penjualan Bakso',
                 'type' => 'income',
                 'parent_id' => $businessCategory->id,
             ]);
 
             Category::create([
                 'user_id' => $user->id,
-                'name' => 'Investment',
+                'name' => 'Investasi',
                 'type' => 'income',
             ]);
 
             // Expense categories
             $foodCategory = Category::create([
                 'user_id' => $user->id,
-                'name' => 'Food & Dining',
+                'name' => 'Makanan & Minuman',
                 'type' => 'expense',
             ]);
 
             Category::create([
                 'user_id' => $user->id,
-                'name' => 'Restaurant',
+                'name' => 'Restoran',
                 'type' => 'expense',
                 'parent_id' => $foodCategory->id,
             ]);
 
             Category::create([
                 'user_id' => $user->id,
-                'name' => 'Groceries',
+                'name' => 'Belanja Bahan',
                 'type' => 'expense',
                 'parent_id' => $foodCategory->id,
             ]);
 
             $transportCategory = Category::create([
                 'user_id' => $user->id,
-                'name' => 'Transportation',
+                'name' => 'Transportasi',
                 'type' => 'expense',
             ]);
 
             Category::create([
                 'user_id' => $user->id,
-                'name' => 'Public Transport',
-                'type' => 'expense',
-                'parent_id' => $transportCategory->id,
-            ]);
-
-            Category::create([
-                'user_id' => $user->id,
-                'name' => 'Fuel',
+                'name' => 'Angkutan Umum',
                 'type' => 'expense',
                 'parent_id' => $transportCategory->id,
             ]);
 
             Category::create([
                 'user_id' => $user->id,
-                'name' => 'Bills & Utilities',
+                'name' => 'Bensin',
+                'type' => 'expense',
+                'parent_id' => $transportCategory->id,
+            ]);
+
+            Category::create([
+                'user_id' => $user->id,
+                'name' => 'Tagihan & Utilitas',
                 'type' => 'expense',
             ]);
 
             Category::create([
                 'user_id' => $user->id,
-                'name' => 'Entertainment',
+                'name' => 'Hiburan',
                 'type' => 'expense',
             ]);
 
             Category::create([
                 'user_id' => $user->id,
-                'name' => 'Healthcare',
+                'name' => 'Kesehatan',
                 'type' => 'expense',
             ]);
 

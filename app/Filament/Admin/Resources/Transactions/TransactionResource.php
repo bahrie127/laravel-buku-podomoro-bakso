@@ -11,7 +11,6 @@ use App\Models\Transaction;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
@@ -23,7 +22,13 @@ class TransactionResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-banknotes';
 
-    protected static string|UnitEnum|null $navigationGroup = 'Financial';
+    protected static string|UnitEnum|null $navigationGroup = 'Keuangan';
+
+    protected static ?string $navigationLabel = 'Transaksi';
+
+    protected static ?string $modelLabel = 'Transaksi';
+
+    protected static ?string $pluralModelLabel = 'Transaksi';
 
     public static function getEloquentQuery(): Builder
     {

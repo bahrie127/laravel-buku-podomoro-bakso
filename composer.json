@@ -1,9 +1,9 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "bahri/buku-bisnis",
+    "name": "bahri/buku-finansial-podomoro",
     "type": "project",
-    "description": "A modern multi-user bookkeeping and financial management system built with Laravel and Filament.",
-    "keywords": ["laravel", "filament", "bookkeeping", "accounting", "financial", "indonesia"],
+    "description": "A modern bookkeeping and financial management system for Podomoro bakso business built with Laravel and Filament.",
+    "keywords": ["laravel", "filament", "bookkeeping", "accounting", "financial", "bakso", "podomoro", "indonesia"],
     "license": "MIT",
     "require": {
         "php": "^8.2",
