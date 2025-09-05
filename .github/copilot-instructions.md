@@ -14,6 +14,7 @@ This application is a Laravel application and its main Laravel ecosystems packag
 - laravel/prompts (PROMPTS) - v0
 - livewire/livewire (LIVEWIRE) - v3
 - laravel/pint (PINT) - v1
+- tailwindcss (TAILWINDCSS) - v4
 
 
 ## Conventions
@@ -283,7 +284,7 @@ Forms\Components\Select::make('user_id')
 
 ## Livewire Core
 - Use the `search-docs` tool to find exact version specific documentation for how to write Livewire & Livewire tests.
-- Use the `php artisan make:livewire [Posts\\CreatePost]` artisan command to create new components
+- Use the `php artisan make:livewire [Posts\CreatePost]` artisan command to create new components
 - State should live on the server, with the UI reflecting it.
 - All Livewire requests hit the Laravel backend, they're like regular HTTP requests. Always validate form data, and run authorization checks in Livewire actions.
 
@@ -368,4 +369,142 @@ document.addEventListener('livewire:init', function () {
 
 - You must run `vendor/bin/pint --dirty` before finalizing changes to ensure your code matches the project's expected style.
 - Do not run `vendor/bin/pint --test`, simply run `vendor/bin/pint` to fix any formatting issues.
+
+
+=== tailwindcss/core rules ===
+
+## Tailwind Core
+
+- Use Tailwind CSS classes to style HTML, check and use existing tailwind conventions within the project before writing your own.
+- Offer to extract repeated patterns into components that match the project's conventions (i.e. Blade, JSX, Vue, etc..)
+- Think through class placement, order, priority, and defaults - remove redundant classes, add classes to parent or child carefully to limit repetition, group elements logically
+- You can use the `search-docs` tool to get exact examples from the official documentation when needed.
+
+### Spacing
+- When listing items, use gap utilities for spacing, don't use margins.
+
+    <code-snippet name="Valid Flex Gap Spacing Example" lang="html">
+        <div class="flex gap-8">
+            <div>Superior</div>
+            <div>Michigan</div>
+            <div>Erie</div>
+        </div>
+    </code-snippet>
+
+
+### Dark Mode
+- If existing pages and components support dark mode, new pages and components must support dark mode in a similar way, typically using `dark:`.
+
+
+=== tailwindcss/v4 rules ===
+
+## Tailwind 4
+
+- Always use Tailwind CSS v4 - do not use the deprecated utilities.
+- `corePlugins` is not supported in Tailwind v4.
+- In Tailwind v4, you import Tailwind using a regular CSS `@import` statement, not using the `@tailwind` directives used in v3:
+
+<code-snippet name="Tailwind v4 Import Tailwind Diff" lang="diff"
+   - @tailwind base;
+   - @tailwind components;
+   - @tailwind utilities;
+   + @import "tailwindcss";
+</code-snippet>
+
+
+### Replaced Utilities
+- Tailwind v4 removed deprecated utilities. Do not use the deprecated option - use the replacement.
+- Opacity values are still numeric.
+
+| Deprecated |	Replacement |
+|------------+--------------|
+| bg-opacity-* | bg-black/* |
+| text-opacity-* | text-black/* |
+| border-opacity-* | border-black/* |
+| divide-opacity-* | divide-black/* |
+| ring-opacity-* | ring-black/* |
+| placeholder-opacity-* | placeholder-black/* |
+| flex-shrink-* | shrink-* |
+| flex-grow-* | grow-* |
+| overflow-ellipsis | text-ellipsis |
+| decoration-slice | box-decoration-slice |
+| decoration-clone | box-decoration-clone |
+
+
+=== .ai/purpose rules ===
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="">
+
+    <title>Buku Finansial Podomoro</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+
+    <!-- Scripts -->
+    <link rel="preload" as="style" href="http://localhost/build/assets/app-Cmi6tdY3.css" /><link rel="modulepreload" as="script" href="http://localhost/build/assets/app-C0G0cght.js" /><link rel="stylesheet" href="http://localhost/build/assets/app-Cmi6tdY3.css" data-navigate-track="reload" /><script type="module" src="http://localhost/build/assets/app-C0G0cght.js" data-navigate-track="reload"></script></head>
+<body class="font-sans antialiased">
+    <div class="min-h-screen bg-gray-100">
+        <!-- Simple Navigation -->
+        <nav class="bg-white border-b border-gray-100">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between h-16">
+                    <div class="flex items-center">
+                        <a href="/" class="text-xl font-semibold text-gray-900">
+                            Buku Finansial Podomoro
+                        </a>
+                    </div>
+                    <div class="flex items-center">
+                        <a href="/admin" class="text-gray-600 hover:text-gray-900">Admin Panel</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Page Heading -->
+        
+        <!-- Page Content -->
+        <main>
+            <div class="max-w-3xl mx-auto py-10">
+    <h1 class="text-2xl font-bold mb-4">Tujuan Aplikasi BukuBisnis</h1>
+
+    <p class="mb-4">
+        Aplikasi <strong>BukuBisnis</strong> dibuat untuk membantu UMKM, freelancer,
+        maupun individu dalam mencatat pemasukan dan pengeluaran sehari-hari
+        secara sederhana namun terstruktur.
+    </p>
+
+    <p class="mb-4">
+        Dengan adanya fitur pencatatan transaksi, pengelompokan kategori,
+        transfer antar akun, serta laporan mingguan dan bulanan, pengguna
+        dapat mengetahui kondisi keuangan mereka tanpa harus bergantung
+        pada spreadsheet manual.
+    </p>
+
+    <p class="mb-4">
+        Tujuan utama:
+    </p>
+    <ul class="list-disc ml-6 mb-6">
+        <li>Menyediakan solusi <em>pembukuan ringan</em> yang mudah digunakan.</li>
+        <li>Membantu pengguna memahami arus kas (cashflow) secara cepat.</li>
+        <li>Memberikan laporan otomatis yang dapat dipakai untuk evaluasi bisnis.</li>
+        <li>Menjadi dasar pengembangan ke fitur lebih lanjut seperti grafik,
+            integrasi pembayaran, maupun akuntansi lanjutan.</li>
+    </ul>
+
+    <p>
+        Dengan aplikasi ini, diharapkan pengguna bisa lebih fokus pada pengembangan
+        usaha mereka, sementara pencatatan keuangan tetap rapih dan mudah dipantau.
+    </p>
+</div>
+            
+        </main>
+    </div>
+</body>
+</html>
 </laravel-boost-guidelines>
