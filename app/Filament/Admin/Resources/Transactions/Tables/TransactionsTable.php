@@ -18,9 +18,9 @@ class TransactionsTable
     {
         return $table
             ->columns([
-                TextColumn::make('created_at')
+                TextColumn::make('date')
                     ->label('Tanggal')
-                    ->dateTime('d M Y H:i')
+                    ->date('d M Y')
                     ->sortable(),
                 TextColumn::make('type')
                     ->label('Jenis')
@@ -60,7 +60,7 @@ class TransactionsTable
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->defaultSort('created_at', 'desc')
+            ->defaultSort('date', 'desc')
             ->filters([
                 Filter::make('date_range')
                     ->label('Rentang Tanggal')

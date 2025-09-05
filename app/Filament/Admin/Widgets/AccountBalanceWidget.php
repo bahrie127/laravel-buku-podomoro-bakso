@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 class AccountBalanceWidget extends TableWidget
 {
-    protected static ?string $heading = 'Account Balances';
+    protected static ?string $heading = 'Saldo Akun';
 
     protected static ?int $sort = 2;
 
@@ -28,11 +28,11 @@ class AccountBalanceWidget extends TableWidget
             )
             ->columns([
                 TextColumn::make('name')
-                    ->label('Account')
+                    ->label('Akun')
                     ->sortable(),
 
                 TextColumn::make('type')
-                    ->label('Type')
+                    ->label('Jenis')
                     ->badge()
                     ->color(fn(string $state): string => match ($state) {
                         'cash' => 'success',
@@ -41,25 +41,25 @@ class AccountBalanceWidget extends TableWidget
                         'other' => 'gray',
                     })
                     ->formatStateUsing(fn(string $state): string => match ($state) {
-                        'cash' => 'Cash',
+                        'cash' => 'Tunai',
                         'bank' => 'Bank',
-                        'ewallet' => 'E-Wallet',
-                        'other' => 'Other',
+                        'ewallet' => 'Dompet Digital',
+                        'other' => 'Lainnya',
                     }),
 
                 TextColumn::make('starting_balance')
-                    ->label('Starting Balance')
+                    ->label('Saldo Awal')
                     ->money('IDR'),
 
                 TextColumn::make('current_balance')
-                    ->label('Current Balance')
+                    ->label('Saldo Saat Ini')
                     ->getStateUsing(fn($record) => $record->getCurrentBalance())
                     ->money('IDR')
                     ->color(fn($state) => $state >= 0 ? 'success' : 'danger')
                     ->weight('bold'),
 
                 TextColumn::make('balance_difference')
-                    ->label('Difference')
+                    ->label('Selisih')
                     ->getStateUsing(fn($record) => $record->getCurrentBalance() - $record->starting_balance)
                     ->money('IDR')
                     ->color(fn($state) => $state >= 0 ? 'success' : 'danger'),

@@ -65,26 +65,26 @@ class FinancialOverview extends BaseWidget
             });
 
         return [
-            Stat::make('Income This Month', 'Rp ' . number_format($currentMonthIncome, 0, ',', '.'))
-                ->description(($incomeChange >= 0 ? '+' : '') . number_format($incomeChange, 1) . '% from last month')
+            Stat::make('Pemasukan Bulan Ini', 'Rp ' . number_format($currentMonthIncome, 0, ',', '.'))
+                ->description(($incomeChange >= 0 ? '+' : '') . number_format($incomeChange, 1) . '% dari bulan lalu')
                 ->descriptionIcon($incomeChange >= 0 ? 'heroicon-m-arrow-trending-up' : 'heroicon-m-arrow-trending-down')
                 ->color($incomeChange >= 0 ? 'success' : 'danger')
                 ->url(TransactionResource::getUrl('index', ['tableFilters' => ['type' => ['value' => 'income']]])),
 
-            Stat::make('Expenses This Month', 'Rp ' . number_format($currentMonthExpenses, 0, ',', '.'))
-                ->description(($expenseChange >= 0 ? '+' : '') . number_format($expenseChange, 1) . '% from last month')
+            Stat::make('Pengeluaran Bulan Ini', 'Rp ' . number_format($currentMonthExpenses, 0, ',', '.'))
+                ->description(($expenseChange >= 0 ? '+' : '') . number_format($expenseChange, 1) . '% dari bulan lalu')
                 ->descriptionIcon($expenseChange >= 0 ? 'heroicon-m-arrow-trending-up' : 'heroicon-m-arrow-trending-down')
                 ->color($expenseChange >= 0 ? 'danger' : 'success')
                 ->url(TransactionResource::getUrl('index', ['tableFilters' => ['type' => ['value' => 'expense']]])),
 
-            Stat::make('Net Profit This Month', 'Rp ' . number_format($netProfit, 0, ',', '.'))
-                ->description($netProfit >= 0 ? 'Profit this month' : 'Loss this month')
+            Stat::make('Keuntungan Bersih Bulan Ini', 'Rp ' . number_format($netProfit, 0, ',', '.'))
+                ->description($netProfit >= 0 ? 'Untung bulan ini' : 'Rugi bulan ini')
                 ->descriptionIcon($netProfit >= 0 ? 'heroicon-m-arrow-trending-up' : 'heroicon-m-arrow-trending-down')
                 ->color($netProfit >= 0 ? 'success' : 'danger')
                 ->url(TransactionResource::getUrl('index')),
 
-            Stat::make('Total Balance', 'Rp ' . number_format($totalCurrentBalance, 0, ',', '.'))
-                ->description('Current total across all accounts')
+            Stat::make('Total Saldo', 'Rp ' . number_format($totalCurrentBalance, 0, ',', '.'))
+                ->description('Total saldo dari semua akun')
                 ->descriptionIcon('heroicon-m-wallet')
                 ->color($totalCurrentBalance >= 0 ? 'success' : 'danger')
                 ->url(TransactionResource::getUrl('index')),
