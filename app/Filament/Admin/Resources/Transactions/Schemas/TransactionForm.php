@@ -145,6 +145,7 @@ class TransactionForm
                                                 ->when($type, fn($q) => $q->where('type', $type));
                                         }
                                     )
+                                    ->preload()
                                     ->searchable()
                                     ->required()
                                     ->reactive(),

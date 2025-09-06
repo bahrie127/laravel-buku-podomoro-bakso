@@ -54,6 +54,13 @@ class TransactionsTable
 
                         return $state;
                     }),
+               TextColumn::make('attachments')
+                    ->label('Bukti')
+                    ->formatStateUsing(fn($record) => $record->attachments->isNotEmpty() ? 'Ada' : 'Tidak Ada')
+                    ->color(fn($state) => $state === 'Ada' ? 'success' : 'secondary')
+                    ->sortable(),
+
+
                 TextColumn::make('updated_at')
                     ->label('Diperbarui')
                     ->dateTime()
