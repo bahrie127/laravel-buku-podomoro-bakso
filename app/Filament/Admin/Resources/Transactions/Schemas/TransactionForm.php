@@ -13,6 +13,8 @@ use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Attachment;
+use Illuminate\Support\Facades\Storage;
 
 class TransactionForm
 {
@@ -100,80 +102,99 @@ class TransactionForm
                                             ->preload()
                                             ->required(),
 
-                                        Select::make('category_id')
-                                            ->label('Kategori')
-                                            ->options(function (callable $get) {
-                                                $type = $get('type');
-                                                if (! $type) {
-                                                    return [];
-                                                }
+                                Select::make('category_id')
+                                    ->label('Kategori')
+                                    // ->options(function (callable $get) {
+                                    //     $type = $get('type');
+                                    //     if (! $type) {
+                                    //         return [];
+                                    //     }
 
-                                                $userId = Auth::id();
+                                    //     $userId = Auth::id();
 
-                                                // Get parent categories
-                                                $parentCategories = Category::where('type', $type)
-                                                    ->where('user_id', $userId)
-                                                    ->whereNull('parent_id')
-                                                    ->get();
+                                    //     // Get parent categories
+                                    //     $parentCategories = Category::where('type', $type)
+                                    //         ->where('user_id', $userId)
+                                    //         ->whereNull('parent_id')
+                                    //         ->get();
 
-                                                $options = [];
+                                    //     $options = [];
 
-                                                foreach ($parentCategories as $category) {
-                                                    $options[$category->id] = $category->name;
+                                    //     foreach ($parentCategories as $category) {
+                                    //         $options[$category->id] = $category->name;
 
-                                                    // Get children for this parent
-                                                    $children = Category::where('parent_id', $category->id)
-                                                        ->where('user_id', $userId)
-                                                        ->get();
+                                    //         // Get children for this parent
+                                    //         $children = Category::where('parent_id', $category->id)
+                                    //             ->where('user_id', $userId)
+                                    //             ->get();
 
-                                                    foreach ($children as $child) {
-                                                        $options[$child->id] = '→ ' . $child->name;
-                                                    }
-                                                }
+                                    //         foreach ($children as $child) {
+                                    //             $options[$child->id] = '→ ' . $child->name;
+                                    //         }
+                                    //     }
 
-                                                return $options;
-                                            })
-                                            ->searchable()
-                                            ->required()
-                                            ->reactive(),
-
-                                        // Spacer untuk mengisi ruang
-                                        TextInput::make('placeholder_field')
-                                            ->hidden()
-                                            ->dehydrated(false),
-                                    ])
-                                    ->columnSpan([
-                                        'default' => 1,
-                                        'md' => 1,
-                                    ]),
-
-                                // Kolom kanan: Catatan dan Lampiran
-                                Grid::make(1)
-                                    ->schema([
-                                        Textarea::make('note')
-                                            ->label('Catatan')
-                                            ->placeholder('Detail tambahan tentang transaksi ini')
-                                            ->rows(4),
-
-                                        FileUpload::make('attachments')
-                                            ->label('Lampiran (Opsional)')
-                                            ->helperText('Unggah struk, invoice, atau dokumen pendukung')
-                                            ->multiple()
-                                            ->acceptedFileTypes(['image/*', 'application/pdf'])
-                                            ->maxSize(5120) // 5MB
-                                            ->directory('transaction-attachments')
-                                            ->visibility('private')
-                                            ->imagePreviewHeight('100')
-                                            ->panelLayout('compact')
-                                            ->reorderable(),
-                                    ])
-                                    ->columnSpan([
-                                        'default' => 1,
-                                        'md' => 1,
-                                    ]),
+                                    //     return $options;
+                                    // })
+                                    ->relationship(
+                                        name: 'category',
+                                        titleAttribute: 'name',
+                                        modifyQueryUsing: function ($query, callable $get) {
+                                            $type = $get('type');
+                                            return $query
+                                                ->where('user_id', Auth::id())
+                                                ->when($type, fn($q) => $q->where('type', $type));
+                                        }
+                                    )
+                                    ->searchable()
+                                    ->required()
+                                    ->reactive(),
                             ]),
+
+                        Textarea::make('note')
+                            ->label('Catatan')
+                            ->placeholder('Detail tambahan tentang transaksi ini')
+                            ->rows(3)
+                            ->columnSpanFull(),
                     ]),
 
-            ]);
+                Section::make('Lampiran')
+                    ->description('Unggah struk, invoice, atau dokumen pendukung lainnya')
+                    ->icon('heroicon-o-paper-clip')
+                    ->collapsible()
+                    ->schema([
+                        FileUpload::make('attachments')
+                            ->label('Unggah File')
+                            ->multiple()
+                            ->acceptedFileTypes(['image/*', 'application/pdf'])
+                            ->maxSize(5120) // 5MB
+                            ->directory('transaction-attachments')
+                            ->visibility('private')
+                            ->columnSpanFull()
+                            ->getUploadedFileNameForStorageUsing(fn ($file): string => (string) str()->uuid() . '.' . $file->getClientOriginalExtension())
+                            ->saveRelationshipsUsing(function ($state, $record) {
+                                if (! $record) {
+                                    return;
+                                }
+
+                                // Kalau update, hapus attachment lama dulu
+                                if ($record->exists) {
+                                    $record->attachments()->delete();
+                                }
+
+                                if (is_array($state)) {
+                                    foreach ($state as $path) {
+                                        $record->attachments()->create([
+                                            'path' => $path,
+                                            'original_name' => basename($path),
+                                            'size' => Storage::disk(config('filesystems.default'))->size($path),
+                                        ]);
+                                    }
+                                }
+                            }),
+                    ]),
+
+
+            ]),
+        ]);
     }
 }
