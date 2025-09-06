@@ -3,7 +3,16 @@
     "name": "bahri/buku-finansial-podomoro",
     "type": "project",
     "description": "A modern bookkeeping and financial management system for Podomoro bakso business built with Laravel and Filament.",
-    "keywords": ["laravel", "filament", "bookkeeping", "accounting", "financial", "bakso", "podomoro", "indonesia"],
+    "keywords": [
+        "laravel",
+        "filament",
+        "bookkeeping",
+        "accounting",
+        "financial",
+        "bakso",
+        "podomoro",
+        "indonesia"
+    ],
     "license": "MIT",
     "require": {
         "php": "^8.2",
