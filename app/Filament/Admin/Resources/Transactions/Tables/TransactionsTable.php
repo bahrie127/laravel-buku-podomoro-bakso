@@ -54,12 +54,22 @@ class TransactionsTable
 
                         return $state;
                     }),
-               TextColumn::make('attachments')
-                    ->label('Bukti')
-                    ->formatStateUsing(fn($record) => $record->attachments->isNotEmpty() ? 'Ada' : 'Tidak Ada')
-                    ->color(fn($state) => $state === 'Ada' ? 'success' : 'secondary')
-                    ->sortable(),
-
+            //    TextColumn::make('attachments')
+            //         ->label('Bukti')
+            //         ->formatStateUsing(fn($record) => $record->attachments->isNotEmpty() ? 'Ada' : 'Tidak Ada')
+            //         ->color(fn($state) => $state === 'Ada' ? 'success' : 'secondary')
+            //         ->sortable(),
+                TextColumn::make('attachments')
+                    ->label('Lampiran')
+                    ->getStateUsing(function ($record) {
+                        return $record->attachments
+                            ->map(function ($attachment) {
+                                // tampilkan ikon PDF + link download
+                                return "<a href='{$attachment->getUrl()}' target='_blank'>{$attachment->original_name}</a>";
+                            })
+                            ->join('<br>'); // pisahkan tiap file dengan baris baru
+                    })
+                    ->html(),
 
                 TextColumn::make('updated_at')
                     ->label('Diperbarui')
